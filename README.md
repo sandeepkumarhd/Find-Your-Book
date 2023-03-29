@@ -21,4 +21,4 @@ Integration with external services: To allow users to purchase or rent books fro
 Overall, a "Find Your Book" project in React can be a challenging but rewarding task that requires a good understanding of both React and the specific requirements of the project.
 
 
-[See Project](https://www.example.com](https://find-your-book.onrender.com).
+[See Project](https://find-your-book.onrender.com).
