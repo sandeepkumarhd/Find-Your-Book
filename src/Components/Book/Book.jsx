@@ -2,10 +2,15 @@ import axios from "axios";
 import { useState } from "react";
 import Card from "../Card/Card";
 import style from "./Book.module.css";
+import { useDispatch,useSelector  } from "react-redux";
+import { bookActions } from "../ReduxStore/BookSlice";
 
-const Book = () => {
+
+const Book = (props) => {
+  const dispatch = useDispatch()
   const [searchValue, setSearchValue] = useState("");
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+const books = useSelector((state) => state.addBook.books)
   const getInputValueHandler = (event) => {
     setSearchValue(event.target.value);
   };
@@ -16,30 +21,38 @@ const Book = () => {
       )
       .then((res) => {
         console.log(res.data);
-        setData(res.data.items);
+        // setData(res.data.items);
+        dispatch(bookActions.addBookData(res.data.items))
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  props.books(books);
   return (
     <div>
       <div className={style.searchBox}>
         <h2>Find Your Books</h2>
-        <input type={"search"} onChange={getInputValueHandler} />
-        <button onClick={feachBook}>Search Here</button>
+        <div>
+          <input
+            type={"search"}
+            onChange={getInputValueHandler}
+            placeholder={"Enter book name"}
+          />
+          <button onClick={feachBook}>Search Here</button>
+        </div>
       </div>
       <div className={style.pcontainer}>
-        {data.map((book, index) => {
+        {books.map((book, index) => {
           return (
-            <div className={style.output} key = {index}>
+            <div className={style.output} key={index}>
               <Card
-                imgUrl={
-                  book.volumeInfo.imageLinks?.smallThumbnail
-                }
+                imgUrl={book.volumeInfo.imageLinks?.smallThumbnail}
                 author={book.volumeInfo.authors || book.volumeInfo.author}
                 title={book.volumeInfo.title}
                 nubOfPage={book.volumeInfo.pageCount}
+                text={book.searchInfo?.textSnippet}
+                id={book.id}
               />
             </div>
           );

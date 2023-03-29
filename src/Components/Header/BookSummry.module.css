@@ -1,0 +1,17 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+.summry{
+    width: 80%;
+    margin:2rem auto;
+    color: brown;
+    text-align: center;
+}
+.summry button{
+   padding: 0.4rem 2rem;
+   border: none;
+   color: black;
+   background-color: rgb(249, 248, 252);
+}
